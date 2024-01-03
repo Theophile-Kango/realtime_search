@@ -19,5 +19,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
