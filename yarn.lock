@@ -135,6 +135,11 @@
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.0-beta.2.tgz#f9d01a0ca788ed5bf78a1746e06c3244af2b7535"
   integrity sha512-Ewdz4m+rlBXiqU8hXC9qjrA6/gaYlwUWbab8M/+/PW3KEoZ36pqvLt4l7wEXELPk699bRXVFS08mt3icJ0idfg==
 
+"@popperjs/core@^2.11.8":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
+
 "@rails/actioncable@^7.0":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.1.2.tgz#d261ff4b72844f5af496671346ec478798f4ac2c"
