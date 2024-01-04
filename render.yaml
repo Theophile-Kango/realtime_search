@@ -1,6 +1,7 @@
 databases:
   - name: realtime_search
     databaseName: realtime_search
+    region: oregeon
     user: theophile
     plan: free
 
