@@ -1,9 +1,12 @@
 <div class="container-fluid p-5">
   <div class="row mb-5">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <h1>Articles</h1>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+      <a href="<%= search_results_path %>" class="btn btn-info">Search results</a>
+    </div>
+    <div class="col-md-3">
       <div class="input-group">
         <%= form_with url: articles_path, method: :get, remote: true, class: "w-100" do %>
           <%= text_field_tag "search", nil, placeholder: "Search article by title", class: "form-control" %>

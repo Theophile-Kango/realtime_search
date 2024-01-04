@@ -1,0 +1,60 @@
+<div class="container-fluid p-5">
+  <div class="row mb-5">
+    <div class="row">
+      <div class="col-md-3">
+        <a href="<%= articles_path %>" class="btn btn-info mb-3" id="back-link">Back</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1>Top 5 User Searches</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Searched Words</th>
+            <th scope="col">Number of times Searched</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% index = 0 %>
+          <% @top_searches.each do |query, count| %>
+            <% index += 1 %>
+            <tr>
+              <td scope="row"><%= index %></td>
+              <td><%= query %></td>
+              <td><%= count %></td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h1>My Searches</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Searched Words</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @search_user_results.each.with_index(1) do |query, index| %>
+            <tr>
+              <td scope="row"><%= index %></td>
+              <td><%= query.search_query %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('back-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    setTimeout(function() {
+      window.location.href = '<%= root_path %>';
+    }, 100);
+  });
+</script>

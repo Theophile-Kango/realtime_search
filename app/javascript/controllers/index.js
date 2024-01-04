@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const debouncedSearchData = debounce(searchData, 5000);
+  const debouncedSearchData = debounce(searchData, 3000);
 
   searchInput.addEventListener('input', (event) => debouncedSearchData(event));
 
