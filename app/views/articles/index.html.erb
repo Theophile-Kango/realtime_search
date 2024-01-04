@@ -5,7 +5,9 @@
     </div>
     <div class="col-md-4">
       <div class="input-group">
-        <input type="text" placeholder="Search article by title" class="form-control" />
+        <%= form_with url: articles_path, method: :get, remote: true, class: "w-100" do %>
+          <%= text_field_tag "search", nil, placeholder: "Search article by title", class: "form-control" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -13,18 +15,7 @@
     <p><%= @error_message %></p>
   <% else %>
     <div class="row">
-      <% @articles.each do |article| %>
-        <div class="col-md-3 mb-3">
-          <div class="card" style="">
-            <img src="<%= article.fetch("urlToImage") %>" class="card-img-top" alt="<%= article.fetch("title") %>">
-            <div class="card-body">
-              <h5 class="card-title"><%= article.fetch("title") %></h5>
-              <p class="card-text"><%= article.fetch("description") %></p>
-              <a href="<%= article.fetch("url") %>" class="btn btn-primary" target="_blank">Read more...</a>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <%= render "articles/articles", articles: @articles %>
     </div>
   <% end %>
 </div>

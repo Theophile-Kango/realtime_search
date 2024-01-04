@@ -1,0 +1,12 @@
+<%= articles.each do |article| %>
+  <div class="col-md-3 mb-3">
+    <div class="card" style="">
+      <img src="<%= article.fetch("urlToImage") %>" class="card-img-top" alt="<%= article.fetch("title") %>">
+      <div class="card-body">
+        <h5 class="card-title"><%= article.fetch("title") %></h5>
+        <p class="card-text"><%= article.fetch("description") %></p>
+        <a href="<%= article.fetch("url") %>" class="btn btn-primary" target="_blank">Read more...</a>
+      </div>
+    </div>
+  </div>
+<% end %>
