@@ -11,8 +11,22 @@ consumer.subscriptions.create("SearchLogsChannel", {
   },
 
   received(data) {
-    if(data.turbo_stream){
-      CableReady.perform(data.turbo_stream);
-    }
+    const { articles } = data;
+    const remoteArticles = document.querySelector("#remote_articles");
+  
+    remoteArticles.innerHTML = articles.map(article => {
+      return `
+        <div class="col-md-3 mb-3">
+          <div class="card" style="">
+            <img src="${article.urlToImage}" class="card-img-top" alt="${article.title}">
+            <div class="card-body">
+              <h5 class="card-title">${article.title}</h5>
+              <p class="card-text">${article.description}</p>
+              <a href="${article.url}" class="btn btn-primary" target="_blank">Read more...</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 });

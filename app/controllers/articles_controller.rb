@@ -1,12 +1,22 @@
 class ArticlesController < ApplicationController
-  before_action :get_articles, only: [:index, :update_search_logs]
-
-  def index; end
+  before_action :get_articles, only: [:update_search_logs]
+  def index
+    response = ApiService.fetch_data
+    if response.success?
+      @articles = response.parsed_response.fetch("articles")
+      @articles = @articles.select { |article| article.fetch("title")&.downcase&.include?(params[:search]&.downcase) } if params[:search].present?
+    else 
+      @error_message = "Error fetching data from the API: #{response.code}"
+    end
+  end
 
   def update_search_logs
     @query = params[:query]
     @articles = @articles.select { |article| article.fetch("title")&.downcase&.include?(@query&.downcase) } if @query.present?
-    ActionCable.server.broadcast("SearchLogsChannel", turbo_stream: turbo_stream.replace("remote_articles", partial: "articles/articles", locals: { articles: @articles }))
+    ActionCable.server.broadcast("SearchLogsChannel", { articles: @articles })
+    respond_to do |format|
+      format.js
+    end
   end
 
   private 
@@ -20,4 +30,7 @@ class ArticlesController < ApplicationController
     end
   end
 
+
 end
+
+
