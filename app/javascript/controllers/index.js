@@ -6,3 +6,18 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById("search");
+  searchInput.addEventListener('input', event => {
+    const query = event.target.value;
+    fetch('/update_search_logs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+      },
+      body: JSON.stringify({ query }),
+    })
+  })
+})

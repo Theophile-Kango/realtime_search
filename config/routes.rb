@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :articles, only: [:index]
-  get 'search', to: "articles#search", as: :search
+  post 'update_search_logs', to: "articles#update_search_logs", as: :update_search_logs
   root "articles#index"
 end

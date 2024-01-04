@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-4">
       <div class="input-group">
-        <%= form_with url: articles_path, method: :get, remote: true, class: "w-100" do %>
+        <%= form_with url: articles_path, method: :put, remote: true, class: "w-100" do %>
           <%= text_field_tag "search", nil, placeholder: "Search article by title", class: "form-control" %>
         <% end %>
       </div>
@@ -14,7 +14,7 @@
   <% if @error_message.present? %>
     <p><%= @error_message %></p>
   <% else %>
-    <div class="row">
+    <div class="row" id="remote_articles">
       <%= render "articles/articles", articles: @articles %>
     </div>
   <% end %>

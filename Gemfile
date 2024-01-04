@@ -46,6 +46,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 gem "httparty"
+gem 'jquery-rails'
+
+# Use jquery-ui for pretty UI
+gem 'jquery-ui-rails'
+gem "sassc-rails"
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"
