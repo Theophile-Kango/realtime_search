@@ -4,6 +4,9 @@ databases:
     region: oregeon
     user: theophile
     plan: free
+    ip_allow_list:
+      - 0.0.0.0/0
+
 
 services:
   - type: redis
