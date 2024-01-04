@@ -9,22 +9,23 @@ services:
     name: sidekiq-redis
     region: oregeon
     maxmemoryPolicy: noeviction
-    ipAllowList: [] # only allow internal connections
+    plan: free
 
   - type: worker
     name: sidekiq-worker
-    region: oregeon # optional (defaults to oregon)
-    plan: free # optional (defaults to starter instance type)
-  # Redis 2 - all external connections allowed
-  - type: redis
-    name: lightning
-    ipAllowList: # required - allow external connections from everywhere
-      - source: 0.0.0.0/0
-        description: everywhere
-  # Redis 3 - no external connections allowed
-  - type: redis
-    name: private redis
-    ipAllowList: [] # only allow internal connections
+    runtime: ruby
+    region: oregeon
+    buildCommand: bundle install
+    startCommand: bundle exec sidekiq
+    plan: free
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: sidekiq-redis
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
   - type: web
     name: realtime_search
     runtime: ruby
