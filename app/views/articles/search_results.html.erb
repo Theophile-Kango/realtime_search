@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           <% index = 0 %>
-          <% @top_searches.each do |query, count| %>
+          <% @top_searches&.each do |query, count| %>
             <% index += 1 %>
             <tr>
               <td scope="row"><%= index %></td>
@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @search_user_results.each.with_index(1) do |query, index| %>
+          <% @search_user_results&.each&.with_index(1) do |query, index| %>
             <tr>
               <td scope="row"><%= index %></td>
               <td><%= query.search_query %></td>
