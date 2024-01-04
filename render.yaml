@@ -7,21 +7,14 @@ databases:
 services:
   - type: redis
     name: sidekiq-redis
-    region: ohio
+    region: oregeon
     maxmemoryPolicy: noeviction
     ipAllowList: [] # only allow internal connections
 
   - type: worker
     name: sidekiq-worker
-    ripAllowList: # required - allow external connections from only these CIDR blocks
-      - source: 203.0.113.4/30
-        description: office
-      - source: 198.51.100.1
-        description: home
-    region: frankfurt # optional (defaults to oregon)
-    plan: pro # optional (defaults to starter instance type)
-    previewPlan: starter # optional (defaults to the value specified by 'plan')
-    maxmemoryPolicy: allkeys-lru # optional (defaults to allkeys-lru)
+    region: oregeon # optional (defaults to oregon)
+    plan: free # optional (defaults to starter instance type)
   # Redis 2 - all external connections allowed
   - type: redis
     name: lightning
