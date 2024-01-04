@@ -24,7 +24,11 @@ class ArticlesController < ApplicationController
 
   def update_search
     query = {ip_address: @ip_address, search_query: params[:query]}
-    UpdateSearchLogsJob.perform_later(query) if query.present?
+    #UpdateSearchLogsJob.perform_later(query) if query.present?
+    ip_address = query.fetch(:ip_address)
+    search_query = query.fetch(:search_query)
+
+    SearchLog.create(ip_address: ip_address, search_query: search_query)
     head :no_content
   end
 
