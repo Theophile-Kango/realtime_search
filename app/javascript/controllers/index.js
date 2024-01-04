@@ -9,6 +9,7 @@ application.register("hello", HelloController)
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById("search");
+
   searchInput.addEventListener('input', event => {
     const query = event.target.value;
     fetch('/update_search_logs', {
@@ -18,6 +19,45 @@ document.addEventListener('DOMContentLoaded', () => {
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
       },
       body: JSON.stringify({ query }),
-    })
+    });
+
   })
+
+  function searchData(event) {
+    const query = event.target.value;
+    if(query.trim().length > 0){
+      fetch(`/update_search?query=${encodeURIComponent(query)}`);
+      searchInput.value = "";
+      udateInput("");
+    }
+  }
+
+  function debounce(mainFunction, delay){
+    let timer;
+  
+    return function (...args) {
+      clearTimeout(timer);
+  
+      timer = setTimeout(() => {
+        mainFunction(...args);
+      }, delay);
+    };
+  };
+
+  function udateInput(value){
+    fetch('/update_search_logs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+      },
+      body: value,
+    });
+  }
+
+  const debouncedSearchData = debounce(searchData, 5000);
+
+  searchInput.addEventListener('input', (event) => debouncedSearchData(event));
+
 })
+

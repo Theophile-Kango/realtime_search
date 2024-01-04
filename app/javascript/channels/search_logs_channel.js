@@ -11,7 +11,7 @@ consumer.subscriptions.create("SearchLogsChannel", {
   },
 
   received(data) {
-    const { articles } = data;
+    const { articles, query } = data;
     const remoteArticles = document.querySelector("#remote_articles");
   
     remoteArticles.innerHTML = articles.map(article => {
@@ -28,5 +28,14 @@ consumer.subscriptions.create("SearchLogsChannel", {
         </div>
       `;
     }).join('');
+
+    // fetch('/update_search', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+    //   },
+    //   body: JSON.stringify({ query }),
+    // })
   }
 });

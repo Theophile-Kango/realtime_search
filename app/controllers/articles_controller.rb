@@ -13,10 +13,16 @@ class ArticlesController < ApplicationController
   def update_search_logs
     @query = params[:query]
     @articles = @articles.select { |article| article.fetch("title")&.downcase&.include?(@query&.downcase) } if @query.present?
-    ActionCable.server.broadcast("SearchLogsChannel", { articles: @articles })
+    ActionCable.server.broadcast("SearchLogsChannel", { articles: @articles, query: @query })
     respond_to do |format|
       format.js
     end
+  end
+
+  def update_search
+    query = params[:query]
+    UpdateSearchLogsJob.perform_later(query) #if query.present?
+    head :no_content
   end
 
   private 

@@ -51,6 +51,7 @@ gem 'jquery-rails'
 # Use jquery-ui for pretty UI
 gem 'jquery-ui-rails'
 gem "sassc-rails"
+gem "sidekiq"
 
 
 # Use Sass to process CSS
