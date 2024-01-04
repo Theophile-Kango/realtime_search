@@ -7,28 +7,31 @@ databases:
 services:
   - type: redis
     name: sidekiq-redis
-    ipAllowList: [] # only allow internal connections
-    plan: free # optional (defaults to starter)
+    region: ohio
     maxmemoryPolicy: noeviction
+    ipAllowList: [] # only allow internal connections
 
-   - type: worker
+  - type: worker
     name: sidekiq-worker
-    env: ruby
-    buildCommand: bundle install
-    startCommand: bundle exec sidekiq -C config/sidekiq.yml
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: monndb
-          property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: REDIS_URL # this must match the name of the environment variable used in production.rb
-        fromService:
-          type: redis
-          name: sidekiq-redis
-          property: connectionString
-
+    ripAllowList: # required - allow external connections from only these CIDR blocks
+      - source: 203.0.113.4/30
+        description: office
+      - source: 198.51.100.1
+        description: home
+    region: frankfurt # optional (defaults to oregon)
+    plan: pro # optional (defaults to starter instance type)
+    previewPlan: starter # optional (defaults to the value specified by 'plan')
+    maxmemoryPolicy: allkeys-lru # optional (defaults to allkeys-lru)
+  # Redis 2 - all external connections allowed
+  - type: redis
+    name: lightning
+    ipAllowList: # required - allow external connections from everywhere
+      - source: 0.0.0.0/0
+        description: everywhere
+  # Redis 3 - no external connections allowed
+  - type: redis
+    name: private redis
+    ipAllowList: [] # only allow internal connections
   - type: web
     name: realtime_search
     runtime: ruby
