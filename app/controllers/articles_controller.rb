@@ -20,8 +20,10 @@ class ArticlesController < ApplicationController
   end
 
   def update_search
-    query = params[:query]
-    UpdateSearchLogsJob.perform_later(query) #if query.present?
+    ip = Socket.ip_address_list.detect{ |intf| intf.ipv4_private? }
+    ip_address = ip&.ip_address
+    query = {ip_address: ip_address, search_query: params[:query]}
+    UpdateSearchLogsJob.perform_later(query) if query.present?
     head :no_content
   end
 
